@@ -17,10 +17,11 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from tests.views import TestView
+from tests.views import TestView, TestCheckView
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/test/<int:pk>", TestView.as_view()),
+    path("api/v1/tests/<int:pk>", TestView.as_view()),
+    path("api/v1/tests/<int:pk>/check/", TestCheckView.as_view())
 ]
