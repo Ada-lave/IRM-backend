@@ -33,3 +33,6 @@ class TestSerializer(serializers.ModelSerializer):
             "title",
             "questions",
         )
+
+
+class TestCheckSerializer(serializers.ModelSerializer)

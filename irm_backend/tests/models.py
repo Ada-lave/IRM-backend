@@ -77,3 +77,7 @@ class TestUser(models.Model):
     score = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     test = models.ForeignKey(Test, on_delete=models.CASCADE)
+
+
+class TestUserQuestion(models.Model):
+    question = models.ForeignKey(TestUser, on_delete=models.CASCADE)
