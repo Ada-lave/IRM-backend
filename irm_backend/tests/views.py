@@ -1,7 +1,7 @@
 from rest_framework import generics, views
 from .models import Test, Result, Question, Answer
 from rest_framework.response import Response
-from .serializers import TestSerializer, QuestionSerializer, AnswerSerializer
+from .serializers import TestSerializer, QuestionSerializer, AnswerSerializer, ResultSerializer
 from django.http import HttpRequest
 import json
 
@@ -13,20 +13,22 @@ class TestView(generics.RetrieveAPIView):
 class TestCheckView(views.APIView):
     
     def post(self, request, pk):
-        print(type(request.data), request.data)
-        # result = Result()
-        # test_id = request.data.get("id")
-        # data = dict(request.data)
+        data = dict(request.data)
+        test = Test.objects.get(id=data.get("id"))
+        total = 0
+        score = 0
+        for question in data["questions"]:
+            total += 1
+            for answer in question["answers"]:
+                if Answer.objects.get(id=answer["id"], question_id=question["id"]).is_right == True :
+                    score += 1
         
-        # for question in data["questions"]:
-        #     print(type(question))
-        #     for answer in question["answers"]:
-        #         result.total += 1
-        #         if Answer.objects.get(id=answer["id"],question_id=question["id"]):
-        #             result.score += 1
-        # result.test = Test.objects.get(id=test_id)
-        # result.save()
+        result_serializer = ResultSerializer(data={"total": total, "score": score, "test": test.id, "user": request.user.id})
+        result_serializer.is_valid(raise_exception=True)
+        result_serializer.save()
+        
+        
                     
         # data = dict(request.data.get("questions"))
-        return Response({"score": 10})
+        return Response(result_serializer.data)
             

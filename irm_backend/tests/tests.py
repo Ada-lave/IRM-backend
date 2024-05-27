@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.test import Client
 from .models import Test, Answer, Question, Theme
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 
 class TestTest(TestCase):
     def setUp(self) -> None:
@@ -20,8 +22,10 @@ class TestTest(TestCase):
                                                  {'id': 3, 'title': 'Ответ 1'}]}]})
 
     def test_accept_test(self):
+        user = User.objects.create_user(password="secretpass", username="user 1")
+        self.client.login(username="user 1", password="secretpass")
         test_id = 1
-        body = {'id': 1, 'title': 'Тест по теме тестов', 
+        body = {'id': test_id, 'title': 'Тест по теме тестов', 
                 'questions': [
                     {'id': 1, 'title': 'Вопрос 1', 
                     'answers': [
@@ -32,8 +36,9 @@ class TestTest(TestCase):
                         {'id': 3, 'title': 'Ответ 1', 'is_right':True}]}]}
         
         response = self.client.post(f"/api/v1/tests/{test_id}/check/", body, content_type="application/json")
+    
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, {"score": 1})
+        self.assertEqual(response.data, {'id': 1, 'score': 1, 'total': 2, 'user': 1, 'test': 1})
         
     
     def preare_full_test_for_test(self):
