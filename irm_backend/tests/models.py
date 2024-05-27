@@ -73,25 +73,8 @@ class Meterial(models.Model):
 
 # Таблицы для проверки тестов
 
-class TestUser(models.Model):
-    score = models.IntegerField()
+class Result(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     test = models.ForeignKey(Test, on_delete=models.CASCADE)
-    
-    class Meta:
-        db_table = "test_user"
-
-
-class TestUserQuestion(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    test_user = models.ForeignKey(TestUser, on_delete=models.CASCADE)
-    
-    class Meta:
-        db_table = "test_user_answer"
-
-class TestUserQuestionAnswer(models.Model):
-    answer = models.ForeignKey(Answer, on_delete=models.Case)
-    test_user_question = models.ForeignKey(TestUserQuestion, on_delete=models.CASCADE)
-    
-    class Meta:
-        db_table = "test_user_answer_question"
+    score = models.IntegerField()
+    total = models.IntegerField()

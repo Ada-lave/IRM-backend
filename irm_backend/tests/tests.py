@@ -31,9 +31,9 @@ class TestTest(TestCase):
                     'answers': [
                         {'id': 3, 'title': 'Ответ 1', 'is_right':True}]}]}
         
-        response = self.client.post(f"/api/v1/tests/{test_id}/check/", body)
+        response = self.client.post(f"/api/v1/tests/{test_id}/check/", body, content_type="application/json")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, {"test_id":test_id, "score": 100})
+        self.assertEqual(response.data, {"score": 1})
         
     
     def preare_full_test_for_test(self):
