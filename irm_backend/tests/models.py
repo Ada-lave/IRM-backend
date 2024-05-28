@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Theme(models.Model):
     title = models.CharField(max_length=255, verbose_name="Название")
 
@@ -34,8 +35,8 @@ class Question(models.Model):
     )
 
     class Meta:
-        verbose_name = "Вопрос"
-        verbose_name_plural = "Вопросы"
+        verbose_name = "Вопрос к тесту"
+        verbose_name_plural = "Вопросы к тестам"
 
     def __str__(self):
         return self.title
@@ -52,14 +53,14 @@ class Answer(models.Model):
     )
 
     class Meta:
-        verbose_name = "Ответ"
-        verbose_name_plural = "Ответы"
+        verbose_name = "Ответы к вопросам"
+        verbose_name_plural = "Ответы к вопросам"
 
     def __str__(self):
         return self.title[:100]
 
 
-class Meterial(models.Model):
+class Material(models.Model):
     text = models.TextField()
 
     def __str__(self):
@@ -68,13 +69,17 @@ class Meterial(models.Model):
     class Meta:
         verbose_name = "Материал"
         verbose_name_plural = "Материалы"
-        
 
 
 # Таблицы для проверки тестов
+
 
 class Result(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     test = models.ForeignKey(Test, on_delete=models.CASCADE)
     score = models.IntegerField()
     total = models.IntegerField()
+
+    class Meta:
+        verbose_name = "Результат тестирования"
+        verbose_name_plural = "Результаты тестирования"
