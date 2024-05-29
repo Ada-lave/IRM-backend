@@ -1,16 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
-class Theme(models.Model):
-    title = models.CharField(max_length=255, verbose_name="Название")
-
-    class Meta:
-        verbose_name = "Темы к тестированию"
-        verbose_name_plural = "Темы к тестированию"
-
-    def __str__(self):
-        return self.title
+from materials.models import Theme
 
 
 class Test(models.Model):
@@ -58,17 +49,6 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.title[:100]
-
-
-class Material(models.Model):
-    text = models.TextField()
-
-    def __str__(self):
-        return self.title[:100]
-
-    class Meta:
-        verbose_name = "Материал"
-        verbose_name_plural = "Материалы"
 
 
 # Таблицы для проверки тестов
