@@ -11,7 +11,8 @@ class Theme(models.Model):
         return self.title
 
 class Material(models.Model):
-    text = models.TextField()
+    title = models.CharField(max_length=255, verbose_name="Заголовок")
+    text = models.TextField(verbose_name="Материал")
 
     def __str__(self):
         return self.title[:100]
