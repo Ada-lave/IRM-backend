@@ -16,12 +16,14 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from tests.views import TestView, TestCheckView
+from materials import urls
 
+API_PATH = "api/v1"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/v1/tests/<int:pk>", TestView.as_view()),
-    path("api/v1/tests/<int:pk>/check/", TestCheckView.as_view())
+    path(f"{API_PATH}/", include("tests.urls")),
+    path(f"{API_PATH}/", include("materials.urls")),
 ]
