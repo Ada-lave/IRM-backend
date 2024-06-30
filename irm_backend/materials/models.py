@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Theme(models.Model):
     title = models.CharField(max_length=255, verbose_name="Название")
 
@@ -22,4 +23,22 @@ class Material(models.Model):
         verbose_name_plural = "Материалы"
 
 
-# Create your models here.
+
+class FileType(models.Model):
+    title = models.CharField(max_length=255)
+
+
+class Attachment(models.Model):
+    path = models.FileField("uploads/")
+    material = models.ForeignKey(
+        Material,
+        related_name="atachments",
+        on_delete=models.CASCADE,
+    )
+    file_type = models.ForeignKey(
+        FileType,
+        related_name="file_type",
+        on_delete=models.CASCADE,
+    )
+
+
