@@ -1,7 +1,8 @@
 from typing import Any
 from django.core.management.base import BaseCommand, CommandError
 from tests.models import *
-
+import json
+import os
 
 class Command(BaseCommand):
     help = "Load base test"
@@ -12,7 +13,15 @@ class Command(BaseCommand):
 
 
 def seed_tests(themes: list):
-    pass
+    with open("tests/management/commands/tests.json") as f:
+        tests = json.load(f)
+    
+    for test in tests["tests"]:
+        created_test = Test.objects.create(title=test["name"], theme=themes[0])
+        for question in test["questions"]:
+            created_question = Question.objects.create(title=question["question"], test=created_test)
+            for answer in question['options']:
+                created_answer = Answer.objects.create(title=answer["answer"], question=created_question)
 
 def seed_themes() -> list:
     theme1 = Theme.objects.create(title="Поражающие факторы источников чрезвычайных ситуаций, характерных для мест расположения и производственной деятельности организации, а также оружия массового поражения и других видов оружия.")
