@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Material, Attachment
+from .models import Material, Attachment, Theme
 
 
 class AttachmentSerializer(ModelSerializer):
@@ -20,3 +20,10 @@ class MaterialREADSerializer(ModelSerializer):
             "text",
             "attachments",
         )
+
+
+class ThemeSerializer(ModelSerializer):
+    attachments = AttachmentSerializer(many=True)
+    class Meta:
+        model = Theme
+        fields = ("title", "attachments")

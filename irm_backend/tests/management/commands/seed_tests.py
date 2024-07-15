@@ -1,6 +1,7 @@
 from typing import Any
 from django.core.management.base import BaseCommand, CommandError
 from tests.models import *
+from materials.models import *
 import json
 import os
 
@@ -8,12 +9,14 @@ class Command(BaseCommand):
     help = "Load base test"
 
     def handle(self, *args: Any, **options: Any) -> str | None:
+        seed_materials_type()
         themes = seed_themes()
         seed_tests(themes)
+        seed_videos(themes)
 
 
 def seed_tests(themes: list):
-    with open("tests/management/commands/tests.json") as f:
+    with open("static/jsons/tests.json") as f:
         tests = json.load(f)
     
     for test in tests["tests"]:
@@ -33,3 +36,12 @@ def seed_themes() -> list:
     theme7 = Theme.objects.create(title="Действия работников организации в условиях негативных и опасных факторов бытового характера.")
     
     return [theme1, theme2, theme3, theme4, theme5, theme6, theme7]
+
+def seed_videos(themes: list):
+    video_path = "static/videos"
+    videos = os.listdir(video_path)
+    for i in range(len(themes)):
+        attachment = Attachment.objects.create(theme=themes[i], name=videos[i], path=f"{video_path}/{videos[i]}", file_type_id=1)
+        
+def seed_materials_type():
+    AttachmentType.objects.create(title="video")

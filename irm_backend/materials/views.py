@@ -1,6 +1,6 @@
 from rest_framework import views
-from .serializers import MaterialREADSerializer, AttachmentSerializer
-from .models import Material, Attachment
+from .serializers import MaterialREADSerializer, AttachmentSerializer, ThemeSerializer
+from .models import Material, Attachment, Theme
 from rest_framework.response import Response
 
 class MaterialViewSet(views.APIView):
@@ -21,4 +21,11 @@ class MaterialDetailViewSet(views.APIView):
         response = material_serializer.data
         response["attachments"] = attachment_serializer.data
         return Response(response)
+    
+class ThemeViewSet(views.APIView):
+    def get(self, request):
+        themes = Theme.objects.all()
+        theme_serializer = ThemeSerializer(themes, many=True)
+        
+        return Response(theme_serializer.data)
     
