@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -26,4 +26,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path(f"{API_PATH}/", include("tests.urls")),
     path(f"{API_PATH}/", include("materials.urls")),
+    path(f"{API_PATH}/", include("djoser.urls")),
+    re_path(r"^auth/", include("djoser.urls.authtoken")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
