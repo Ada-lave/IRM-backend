@@ -38,8 +38,8 @@ class AttachmentType(models.Model):
 class Attachment(models.Model):
     name = models.CharField(max_length=255, verbose_name="Имя файла")
     path = models.FileField(upload_to="static/uploads/", verbose_name="Файл")
-    material = models.ForeignKey(
-        Material,
+    theme = models.ForeignKey(
+        Theme,
         related_name="attachments",
         verbose_name="К какому материалу",
         on_delete=models.CASCADE,
