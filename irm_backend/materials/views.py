@@ -28,4 +28,15 @@ class ThemeViewSet(views.APIView):
         theme_serializer = ThemeSerializer(themes, many=True)
         
         return Response(theme_serializer.data)
+
+class ThemeDetailViewSet(views.APIView):
+    def get(self, request, pk):
+        
+        try:
+            theme = Theme.objects.get(pk=pk)
+            theme_serializer = ThemeSerializer(theme)            
+            return Response(theme_serializer.data)
+        except Theme.DoesNotExist:
+            return Response({"detail": "data not found"}, status=404)
+
     
