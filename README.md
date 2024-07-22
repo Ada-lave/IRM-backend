@@ -3,7 +3,7 @@
 
 # Запуск с помощью Docker
 ## Сборка образа
-для сборки проекта запустите команду
+для первоначальной сборки проекта запустите команду
 ```sh
 docker build -t irm_backend:latest .
 ```
@@ -24,7 +24,9 @@ docker start IRM
 <summary><code>GET</code> <code>/api/v1/tests/{id}</code> <code>Возвращает все доступные тесты</code></summary>
 
 ### Параметры
-*Не требует*
+|Name     | required       | Type                |
+|---------|----------------|---------------------|
+|id       |true            | int(query)          |
 
 ### Ответ
 |Code| Content-Type   | Response            |
@@ -123,6 +125,90 @@ docker start IRM
         "Введённый пароль слишком короткий. Он должен содержать как минимум 8 символов.",
         "Введённый пароль слишком широко распространён."
     ]
+}
+```
+</details>
+
+## Темы
+<details>
+<summary><code>GET</code> <code>/api/v1/themes/</code> <code>Отдает все темы</code></summary>
+
+### Параметры
+*Не требует*
+
+### Ответ
+|Code| Content-Type   | Response            |
+|----|----------------|---------------------|
+|200 |application/json|```json```           |
+
+### Структура ответа
+```json
+{
+    [
+        {
+            "title": "string",
+            "attachments": [
+                {
+                    "id": "int",
+                    "name": "string",
+                    "path": "string:path_like",
+                    "theme": "int",
+                    "file_type": "int"
+                }
+            ]
+        },
+        {
+            "title": "string",
+            "attachments": [
+                {
+                    "id": "int",
+                    "name": "string",
+                    "path": "string:path_like",
+                    "theme": "int",
+                    "file_type": "int"
+                }
+            ]
+        }
+    ]
+}
+```
+</details>
+
+<details>
+<summary><code>GET</code> <code>/api/v1/themes/{id}</code> <code>Отдает тему по id</code></summary>
+
+### Параметры
+|Name     | required       | Type                |
+|---------|----------------|---------------------|
+|id       |true            | int(query)          |
+
+### Ответ
+|Code| Content-Type   | Response            |
+|----|----------------|---------------------|
+|200 |application/json|```json```           |
+|404 |application/json|```json```           |
+
+### Структура ответа
+> Code 200
+```json   
+{
+    "title": "string",
+    "attachments": [
+        {
+            "id": "int",
+            "name": "string",
+            "path": "string:path_like",
+            "theme": "int",
+            "file_type": "int"
+        }
+    ]
+}
+```
+
+>Code 404
+```json
+{
+    "detail": "data not found"
 }
 ```
 </details>
