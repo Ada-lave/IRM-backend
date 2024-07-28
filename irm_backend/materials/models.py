@@ -25,14 +25,14 @@ class Material(models.Model):
 
 
 class AttachmentType(models.Model):
-    title = models.CharField(max_length=255)
+    type = models.CharField(max_length=255)
 
     class Meta:
         verbose_name = "Тип прикрепления"
         verbose_name_plural = "Тип прикреплений"
-        
+
     def __str__(self):
-        return self.title
+        return self.type
 
 
 class Attachment(models.Model):
@@ -54,6 +54,6 @@ class Attachment(models.Model):
     class Meta:
         verbose_name = "Прикрипление"
         verbose_name_plural = "Прикрепления"
-        
+
     def __str__(self):
         return self.name

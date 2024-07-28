@@ -9,10 +9,10 @@ class Command(BaseCommand):
     help = "Load base test"
 
     def handle(self, *args: Any, **options: Any) -> str | None:
-        seed_materials_type()
         themes = seed_themes()
         seed_tests(themes)
         seed_videos(themes)
+        seed_pdf_documents(themes)
 
 
 def seed_tests(themes: list):
@@ -38,10 +38,15 @@ def seed_themes() -> list:
     return [theme1, theme2, theme3, theme4, theme5, theme6, theme7]
 
 def seed_videos(themes: list):
+    video_type, created = AttachmentType.objects.get_or_create(type="video")
     video_path = "static/videos"
     videos = os.listdir(video_path)
     for i in range(len(themes)):
-        attachment = Attachment.objects.create(theme=themes[i], name=videos[i], path=f"{video_path}/{videos[i]}", file_type_id=1)
-        
-def seed_materials_type():
-    AttachmentType.objects.create(title="video")
+        attachment = Attachment.objects.create(theme=themes[i], name=videos[i], path=f"{video_path}/{videos[i]}", file_type_id=video_type.id)
+    
+def seed_pdf_documents(themes: list):
+    pdf_document_type, created = AttachmentType.objects.get_or_create(type="document/pdf")
+    pdfs_path = "static/pdfs"
+    pdfs = os.listdir(pdfs_path)
+    for i in range(len(themes)):
+        attachment = Attachment.objects.create(theme=themes[i], name=pdfs[i], path=f"{pdfs_path}/{pdfs[i]}", file_type_id=pdf_document_type.id)
