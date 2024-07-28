@@ -2,3 +2,4 @@ irm_backend/db.sqlite3
 venv
 *.pyc
 static/
+.env
