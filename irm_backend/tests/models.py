@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from materials.models import Theme
-
+from materials.models import Theme, Employee
 
 class Test(models.Model):
     title = models.CharField(max_length=255, verbose_name="Название")
@@ -55,10 +54,10 @@ class Answer(models.Model):
 
 
 class Result(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    test = models.ForeignKey(Test, on_delete=models.CASCADE)
-    score = models.IntegerField()
-    total = models.IntegerField()
+    user = models.ForeignKey(Employee, on_delete=models.CASCADE, verbose_name='Сотрудник')
+    test = models.ForeignKey(Test, on_delete=models.CASCADE, verbose_name='Тестирование')
+    score = models.IntegerField(verbose_name='Правильных')
+    total = models.IntegerField(verbose_name='Всего вопросов')
 
     class Meta:
         verbose_name = "Результат тестирования"
