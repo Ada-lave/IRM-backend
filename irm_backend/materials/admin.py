@@ -11,9 +11,14 @@ class MaterialAdmin(admin.ModelAdmin):
 
 @admin.register(Attachment)
 class AttachmentAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("name", "path", "file_type", "theme", "section")
+    fields = ("path", "file_type", "theme", "section")
 
 @admin.register(AttachmentType)
 class FileTypeAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Section)
+class SectionAdmin(admin.ModelAdmin):
     pass
 # Register your models here.
