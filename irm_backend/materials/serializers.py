@@ -1,14 +1,14 @@
-from rest_framework.serializers import ModelSerializer
-from .models import Material, Attachment, Theme, AttachmentType
+from rest_framework import serializers
+from .models import *
 
 
-class AttachmentTypeSerializer(ModelSerializer):
+class AttachmentTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = AttachmentType
         fields = "__all__"
 
 
-class AttachmentSerializer(ModelSerializer):
+class AttachmentSerializer(serializers.ModelSerializer):
     file_type = AttachmentTypeSerializer(read_only=True)
 
     class Meta:
@@ -16,7 +16,7 @@ class AttachmentSerializer(ModelSerializer):
         fields = ("name", "path", "theme_id", "file_type")
 
 
-class MaterialREADSerializer(ModelSerializer):
+class MaterialREADSerializer(serializers.ModelSerializer):
     read_only = True
     attachments = AttachmentSerializer(many=True, read_only=True)
 
@@ -30,9 +30,23 @@ class MaterialREADSerializer(ModelSerializer):
         )
 
 
-class ThemeSerializer(ModelSerializer):
+class ThemeSerializer(serializers.ModelSerializer):
     attachments = AttachmentSerializer(many=True)
 
     class Meta:
         model = Theme
         fields = ("title", "attachments")
+
+
+class EmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ("id", "fio", "gender", "department_id")
+
+
+class DepartmentSerializer(serializers.ModelSerializer):
+    # employes = EmployeeSerializer(many=True)
+
+    class Meta:
+        model = Department
+        fields = ("id", "title",)
