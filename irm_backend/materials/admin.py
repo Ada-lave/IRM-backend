@@ -8,4 +8,12 @@ class ThemeAdmin(admin.ModelAdmin):
 @admin.register(Material)
 class MaterialAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(Attachment)
+class AttachmentAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(AttachmentType)
+class FileTypeAdmin(admin.ModelAdmin):
+    pass
 # Register your models here.

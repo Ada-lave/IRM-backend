@@ -22,7 +22,6 @@ class QuestionSerializer(serializers.ModelSerializer):
             "answers",
         )
 
-
 class TestSerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(many=True, read_only=True)
 
@@ -33,7 +32,6 @@ class TestSerializer(serializers.ModelSerializer):
             "title",
             "questions",
         )
-
 
 class ResultSerializer(serializers.ModelSerializer):
     class Meta:

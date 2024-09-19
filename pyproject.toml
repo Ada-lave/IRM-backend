@@ -9,6 +9,9 @@ readme = "README.md"
 python = "^3.11"
 Django = "^5.0.6"
 djangorestframework = "^3.15.1"
+django-cors-headers = "^4.4.0"
+djoser = "^2.2.3"
+gunicorn = "^22.0.0"
 
 
 [build-system]

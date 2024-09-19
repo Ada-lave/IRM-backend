@@ -1,9 +1,8 @@
 from rest_framework import generics, views
-from .models import Test, Result, Question, Answer
+from .models import Test, Answer
 from rest_framework.response import Response
-from .serializers import TestSerializer, QuestionSerializer, AnswerSerializer, ResultSerializer
-from django.http import HttpRequest
-import json
+from .serializers import TestSerializer, ResultSerializer
+
 
 
 class TestView(generics.RetrieveAPIView):
