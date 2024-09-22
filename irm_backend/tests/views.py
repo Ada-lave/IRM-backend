@@ -60,7 +60,7 @@ class TestCheckView(views.APIView):
                 "total": total,
                 "score": score,
                 "test": test.id,
-                "user": request.user.id,
+                "user": data.get("employee_id"),
             }
         )
         result_serializer.is_valid(raise_exception=True)
