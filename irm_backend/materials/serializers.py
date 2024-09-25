@@ -50,3 +50,9 @@ class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Department
         fields = ("id", "title",)
+        
+class SectionSerializer(serializers.ModelSerializer):
+    attachments = AttachmentSerializer(many=True)
+    class Meta:
+        model = Section
+        fields = ('id', 'name', "attachments")

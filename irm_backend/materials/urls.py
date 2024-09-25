@@ -9,5 +9,8 @@ urlpatterns = [
     path("themes/<int:pk>", ThemeDetailViewSet.as_view()),
     
     path("departments/<int:pk>", DepartmentViewSet.as_view()),
-    path("departments/", DepartmentViewSet.as_view())
+    path("departments/", DepartmentViewSet.as_view()),
+    
+    path("sections/", SectionViewSet.as_view()),
+    path("sections/<int:pk>", SectionViewSet.as_view()),
 ]

@@ -68,3 +68,15 @@ class DepartmentViewSet(views.APIView):
                 ).data
 
             return Response(response)
+
+class SectionViewSet(views.APIView):
+    def  get(self, request, pk=None):
+        if pk:
+            section = Section.objects.get(pk=pk)
+            section_serializer = SectionSerializer(section)
+        else:
+            sections = Section.objects.all()
+            section_serializer = SectionSerializer(sections, many=True)
+        
+        return Response(section_serializer.data)
+
