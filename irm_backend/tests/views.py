@@ -44,6 +44,11 @@ class TestCheckView(views.APIView):
         test = Test.objects.get(id=data.get("id"))
         total = 0
         score = 0
+        result = Result.objects.filter(test_id=test.id, employee_id=data.get("employee_id"))
+        
+        if result:
+            result.delete()
+    
         for question in data["questions"]:
             total += 1
             for answer in question["answers"]:

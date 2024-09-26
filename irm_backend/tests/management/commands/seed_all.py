@@ -6,13 +6,14 @@ import json
 import os
 
 class Command(BaseCommand):
-    help = "Load base test"
+    help = "Load base data"
 
     def handle(self, *args: Any, **options: Any) -> str | None:
         themes = seed_themes()
         seed_tests(themes)
         seed_videos(themes)
         seed_pdf_documents(themes)
+        seed_sections()
 
 
 def seed_tests(themes: list):
@@ -50,3 +51,8 @@ def seed_pdf_documents(themes: list):
     pdfs = os.listdir(pdfs_path)
     for i in range(len(themes)):
         attachment = Attachment.objects.create(theme=themes[i], name=pdfs[i], path=f"{pdfs_path}/{pdfs[i]}", file_type_id=pdf_document_type.id)
+
+def seed_sections():
+    section_names = ["Инструктаж","Документы","Памятки"]
+    for section_name in section_names:
+        Section.objects.get_or_create(name=section_name)
