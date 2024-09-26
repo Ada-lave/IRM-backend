@@ -15,7 +15,7 @@ class TestView(generics.RetrieveAPIView):
 class ResultView(views.APIView):
     def get(self, request):
         results = Result.objects.all()
-        test_id=request.query_params.get("test_id"),
+        test_id=request.query_params.get("test_id")
         department_id=request.query_params.get("department_id")
         
         if test_id:
@@ -24,7 +24,7 @@ class ResultView(views.APIView):
         if department_id:
             results = results.filter(user__department_id=department_id)
         
-        result_serializer = ResultSerializer(data=results, many=True)
+        result_serializer = ResultSerializer(results, many=True)
 
         return Response(result_serializer.data)
     

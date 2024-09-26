@@ -36,4 +36,4 @@ class TestSerializer(serializers.ModelSerializer):
 class ResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Result
-        fields = "__all__"
+        fields = ('id', 'score', 'total', 'user_id', 'test_id')
