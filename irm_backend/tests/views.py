@@ -14,6 +14,22 @@ class TestView(generics.RetrieveAPIView):
 
 class ResultView(views.APIView):
     def get(self, request):
+        results = Result.objects.all()
+        test_id=request.query_params.get("test_id"),
+        department_id=request.query_params.get("department_id")
+        
+        if test_id:
+            results = results.filter(test_id=test_id)
+
+        if department_id:
+            results = results.filter(user__department_id=department_id)
+        
+        result_serializer = ResultSerializer(data=results, many=True)
+
+        return Response(result_serializer.data)
+    
+class ResultExportView(views.APIView):
+    def get(self, request):
         exporter = Export()
         workbook = exporter.export(
             test_id=request.query_params.get("test_id"),
