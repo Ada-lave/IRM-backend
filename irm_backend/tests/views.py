@@ -80,8 +80,8 @@ class TestCheckView(views.APIView):
             data={
                 "total": total,
                 "score": score,
-                "test_id": data.get("id"),
-                "user_id": data.get("employee_id"),
+                "test": data.get("id"),
+                "user": data.get("employee_id"),
             }
         )
         result_serializer.is_valid(raise_exception=True)
