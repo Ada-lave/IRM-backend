@@ -60,7 +60,7 @@ class TestCheckView(views.APIView):
         test = Test.objects.get(id=data.get("id"))
         total = 0
         score = 0
-        result = Result.objects.filter(test_id=test.id, employee_id=data.get("employee_id"))
+        result = Result.objects.filter(test_id=test.id, user_id=data.get("employee_id"))
         
         if result:
             result.delete()
