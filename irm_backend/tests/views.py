@@ -11,6 +11,10 @@ class TestView(generics.RetrieveAPIView):
     queryset = Test.objects.all()
     serializer_class = TestSerializer
 
+class TestListView(generics.ListAPIView):
+    queryset = Test.objects.all()
+    serializer_class = TestSerializer
+
 
 class ResultView(views.APIView):
     def get(self, request):
