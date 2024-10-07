@@ -1,9 +1,10 @@
 services:
   web:
+    container_name: server
     build: ./irm_backend
     command: gunicorn irm_backend.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - static_volume:/home/project/static
+      - ./irm_backend/static:/home/project/static
       - ./irm_backend/db.sqlite3:/home/project/db.sqlite3
     expose:
       - 8000
@@ -18,6 +19,3 @@ services:
       - 8100:80
     depends_on:
       - web
-
-volumes:
-  static_volume:
