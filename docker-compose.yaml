@@ -13,7 +13,7 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - static_volume:/home/project/static
+      - ./irm_backend/static:/home/project/static
     ports:
       - 8100:80
     depends_on:
