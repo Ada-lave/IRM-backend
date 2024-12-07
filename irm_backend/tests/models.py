@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+import datetime
 from materials.models import Theme, Employee
 
 class Test(models.Model):
@@ -12,7 +12,7 @@ class Test(models.Model):
         verbose_name_plural = "Тесты"
 
     def __str__(self):
-        return self.title
+        return self.title[:50]
 
 
 class Question(models.Model):
@@ -29,7 +29,7 @@ class Question(models.Model):
         verbose_name_plural = "Вопросы к тестам"
 
     def __str__(self):
-        return self.title
+        return self.title[:50]
 
 
 class Answer(models.Model):
@@ -58,6 +58,8 @@ class Result(models.Model):
     test = models.ForeignKey(Test, on_delete=models.CASCADE, verbose_name='Тестирование')
     score = models.IntegerField(verbose_name='Правильных')
     total = models.IntegerField(verbose_name='Всего вопросов')
+    
+    compleated_at = models.DateTimeField(verbose_name="Время завершения",auto_now_add=True, null=True, blank=True)
 
     class Meta:
         verbose_name = "Результат тестирования"

@@ -7,12 +7,15 @@ from django.utils.html import format_html
 
 @admin.register(Test)
 class TestAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["title"]
+
 
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ("title", "view_test_link")
+    search_fields = ["title"]
+    list_filter = ["test"]
 
     def view_test_link(self, obj):
         url = (
@@ -28,6 +31,9 @@ class QuestionAdmin(admin.ModelAdmin):
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
     list_display = ("title", "is_right", "view_q_link")
+    search_fields = ["title"]
+    list_filter = ["question__test", "question"]
+
 
     def view_q_link(self, obj):
         url = (
