@@ -1,10 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User
-
 from materials.models import Theme, Employee
 
 class Test(models.Model):
-    title = models.CharField(max_length=255, verbose_name="Название")
+    title = models.CharField(max_length=512, verbose_name="Название")
     theme = models.ForeignKey(Theme, verbose_name="Тема", on_delete=models.CASCADE)
 
     class Meta:
@@ -12,11 +10,11 @@ class Test(models.Model):
         verbose_name_plural = "Тесты"
 
     def __str__(self):
-        return self.title
+        return self.title[:50]
 
 
 class Question(models.Model):
-    title = models.CharField(max_length=255, verbose_name="Название")
+    title = models.CharField(max_length=512, verbose_name="Название")
     test = models.ForeignKey(
         Test,
         related_name="questions",
@@ -29,7 +27,7 @@ class Question(models.Model):
         verbose_name_plural = "Вопросы к тестам"
 
     def __str__(self):
-        return self.title
+        return self.title[:50]
 
 
 class Answer(models.Model):
@@ -54,6 +52,7 @@ class Answer(models.Model):
 
 
 class Result(models.Model):
+        
     user = models.ForeignKey(Employee, on_delete=models.CASCADE, verbose_name='Сотрудник')
     test = models.ForeignKey(Test, on_delete=models.CASCADE, verbose_name='Тестирование')
     score = models.IntegerField(verbose_name='Правильных')

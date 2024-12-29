@@ -49,8 +49,8 @@ class Section(models.Model):
 
 
 class Attachment(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Имя файла")
-    path = models.FileField(upload_to="static/uploads/", verbose_name="Файл")
+    name = models.CharField(max_length=512, verbose_name="Имя файла")
+    path = models.FileField(max_length=4096, upload_to="static/uploads/", verbose_name="Файл")
     theme = models.ForeignKey(
         Theme,
         related_name="attachments",

@@ -11,6 +11,7 @@ class TestView(generics.RetrieveAPIView):
     queryset = Test.objects.all()
     serializer_class = TestSerializer
 
+
 class TestListView(generics.ListAPIView):
     queryset = Test.objects.all()
     serializer_class = TestSerializer
@@ -19,19 +20,20 @@ class TestListView(generics.ListAPIView):
 class ResultView(views.APIView):
     def get(self, request):
         results = Result.objects.all()
-        test_id=request.query_params.get("test_id")
-        department_id=request.query_params.get("department_id")
-        
+        test_id = request.query_params.get("test_id")
+        department_id = request.query_params.get("department_id")
+
         if test_id:
             results = results.filter(test_id=test_id)
 
         if department_id:
             results = results.filter(user__department_id=department_id)
-        
+
         result_serializer = ResultSerializer(results, many=True)
 
         return Response(result_serializer.data)
-    
+
+
 class ResultExportView(views.APIView):
     def get(self, request):
         exporter = Export()
@@ -65,18 +67,17 @@ class TestCheckView(views.APIView):
         total = 0
         score = 0
         result = Result.objects.filter(test_id=test.id, user_id=data.get("employee_id"))
-        
-        if result:
+
+        if result.exists():
             result.delete()
-    
+
         for question in data["questions"]:
             total += 1
             for answer in question["answers"]:
                 if (
                     Answer.objects.get(
                         id=answer["id"], question_id=question["id"]
-                    ).is_right
-                    == True
+                    ).is_right is True
                 ):
                     score += 1
 

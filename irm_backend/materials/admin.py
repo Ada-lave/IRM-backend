@@ -30,11 +30,15 @@ class SectionAdmin(admin.ModelAdmin):
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["fio"]
+    list_display = ["fio", "department", "gender"]
+    list_filter = ["department"]
+
 
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ["title"]
+
 
 
 # Register your models here.
