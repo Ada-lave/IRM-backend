@@ -57,6 +57,8 @@ class Result(models.Model):
     test = models.ForeignKey(Test, on_delete=models.CASCADE, verbose_name='Тестирование')
     score = models.IntegerField(verbose_name='Правильных')
     total = models.IntegerField(verbose_name='Всего вопросов')
+    
+    compleated_at = models.DateTimeField(verbose_name="Время завершения",auto_now_add=True, null=True, blank=True)
 
     class Meta:
         verbose_name = "Результат тестирования"

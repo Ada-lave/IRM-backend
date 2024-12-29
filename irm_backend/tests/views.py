@@ -67,8 +67,8 @@ class TestCheckView(views.APIView):
         total = 0
         score = 0
         result = Result.objects.filter(test_id=test.id, user_id=data.get("employee_id"))
-
-        if result.exists():
+        
+        if result.exists():  
             result.delete()
 
         for question in data["questions"]:
