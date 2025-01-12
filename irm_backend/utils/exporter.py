@@ -1,6 +1,6 @@
 import openpyxl
 from tests.models import Result
-import datetime
+import pytz
 
 class Export:
 
@@ -30,8 +30,10 @@ class Export:
         worksheet.column_dimensions['E'].width = 15
         worksheet.column_dimensions['F'].width = 40
 
+        server_timezone = pytz.timezone('Asia/Yekaterinburg')
         for res in results:
-            row = [res.id, res.test.title, res.user.fio, res.total, res.score, res.compleated_at]
+            
+            row = [res.id, res.test.title, res.user.fio, res.total, res.score, res.compleated_at.astimezone(server_timezone).strftime("%Y-%m-%d %H:%M:%S")]
             worksheet.append(row)
 
         return workbook
