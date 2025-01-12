@@ -1,7 +1,6 @@
 import openpyxl
 from tests.models import Result
-from zoneinfo import ZoneInfo
-import time
+import datetime
 
 class Export:
 
@@ -31,11 +30,8 @@ class Export:
         worksheet.column_dimensions['E'].width = 15
         worksheet.column_dimensions['F'].width = 40
 
-
         for res in results:
-            local_timezone = ZoneInfo(time.tzname[0])
-            date = res.compleated_at.replace(tzinfo=local_timezone)
-            row = [res.id, res.test.title, res.user.fio, res.total, res.score, date.strftime("%Y-%m-%d %H:%M:%S")]
+            row = [res.id, res.test.title, res.user.fio, res.total, res.score, res.compleated_at]
             worksheet.append(row)
 
         return workbook
