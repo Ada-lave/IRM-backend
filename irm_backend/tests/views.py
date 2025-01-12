@@ -32,11 +32,11 @@ class ResultView(views.APIView):
             results = results.filter(user__department_id=department_id)
 
         if start_date:
-            start_date = datetime.strptime(start_date, "%Y-%m-%d")
+            start_date = datetime.strptime(start_date, "%Y-%m-%d %H:%M:%S")
             results = results.filter(compleated_at__gte=start_date)
 
         if end_date:
-            end_date = datetime.strptime(end_date, "%Y-%m-%d")
+            end_date = datetime.strptime(end_date, "%Y-%m-%d %H:%M:%S")
             results = results.filter(compleated_at__lte=end_date)
 
         result_serializer = ResultSerializer(results, many=True)
