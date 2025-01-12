@@ -5,8 +5,7 @@ from .serializers import TestSerializer, ResultSerializer
 from urllib.parse import quote
 from django.http import HttpResponse
 from utils.exporter import Export
-from dateutil import parser
-
+from datetime import datetime
 
 class TestView(generics.RetrieveAPIView):
     queryset = Test.objects.all()
@@ -33,11 +32,11 @@ class ResultView(views.APIView):
             results = results.filter(user__department_id=department_id)
 
         if start_date:
-            start_date = parser.parse(start_date)
+            start_date = datetime.strptime(start_date, "%Y-%m-%d")
             results = results.filter(compleated_at__gte=start_date)
 
         if end_date:
-            end_date = parser.parse(end_date)
+            end_date = datetime.strptime(end_date, "%Y-%m-%d")
             results = results.filter(compleated_at__lte=end_date)
 
         result_serializer = ResultSerializer(results, many=True)
