@@ -31,7 +31,7 @@ class Export:
         worksheet.column_dimensions['F'].width = 40
 
         for res in results:
-            row = [res.id, res.test.title, res.user.fio, res.total, res.score, datetime.datetime.strptime(res.compleated_at, "%Y-%m-%d")]
+            row = [res.id, res.test.title, res.user.fio, res.total, res.score, res.compleated_at.strftime("%Y-%m-%d %H:%M:%S")]
             worksheet.append(row)
 
         return workbook
