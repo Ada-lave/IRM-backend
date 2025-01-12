@@ -1,6 +1,6 @@
 import openpyxl
 from tests.models import Result
-
+import datetime
 
 class Export:
 
@@ -21,15 +21,17 @@ class Export:
             "Пользователь",
             "Всего вопросов",
             "Верных ответов",
+            "Время прохождения"
         ]
         worksheet.append(columns)
         worksheet.column_dimensions['B'].width = 40
         worksheet.column_dimensions['C'].width = 35
         worksheet.column_dimensions['D'].width = 15
         worksheet.column_dimensions['E'].width = 15
+        worksheet.column_dimensions['F'].width = 40
 
         for res in results:
-            row = [res.id, res.test.title, res.user.fio, res.total, res.score]
+            row = [res.id, res.test.title, res.user.fio, res.total, res.score, datetime.datetime.strptime(res.compleated_at, "%Y-%m-%d")]
             worksheet.append(row)
 
         return workbook
